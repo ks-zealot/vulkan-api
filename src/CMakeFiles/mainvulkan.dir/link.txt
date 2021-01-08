@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmainvulkan.a  CMakeFiles/mainvulkan.dir/MainVulkan.cpp.o
+/usr/bin/ranlib libmainvulkan.a
