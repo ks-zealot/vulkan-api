@@ -72,11 +72,11 @@ void MainVulkan::releaseKey() {
     //keyPressed = false;
 }
 void MainVulkan::createDescriptorSets() {
-    std::vector<VkDescriptorSetLayout> layouts(swapChainImages.size()*2, descriptorSetLayout);
+    std::vector<VkDescriptorSetLayout> layouts(swapChainImages.size(), descriptorSetLayout);
     VkDescriptorSetAllocateInfo allocInfo{};
     allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
     allocInfo.descriptorPool = descriptorPool;
-    allocInfo.descriptorSetCount = static_cast<uint32_t>(swapChainImages.size() *2);
+    allocInfo.descriptorSetCount = static_cast<uint32_t>(swapChainImages.size() );
     allocInfo.pSetLayouts = layouts.data();
     descriptorSets.resize(swapChainImages.size() );
     if (vkAllocateDescriptorSets(device, &allocInfo, descriptorSets.data()) != VK_SUCCESS) {
@@ -424,11 +424,11 @@ void MainVulkan::passCommand() {
   //            vkCmdBindDescriptorSets(commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS,
   //                                  pipelineLayout, 0, 1, &descriptorSetsArr[i], 0, nullptr);
             std::vector<VkDescriptorSet> d = {descriptorSets[i], descriptorSetsVec[i]};                                  
+           vkCmdBindDescriptorSets(commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS,
+                                 pipelineLayout, 0, 1, &descriptorSetsVec[i], 0, nullptr);
     vkCmdBindDescriptorSets(commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS,
                                     pipelineLayout, 0, 1, &descriptorSets[i], 0, nullptr);
-       //     vkCmdBindDescriptorSets(commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS,
-         //                        pipelineLayout, 0, 1, &descriptorSetsVec[i], 0, nullptr);
-    
+     
 
 
 
